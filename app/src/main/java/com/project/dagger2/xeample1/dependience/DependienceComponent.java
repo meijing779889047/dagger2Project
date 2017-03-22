@@ -2,6 +2,8 @@ package com.project.dagger2.xeample1.dependience;
 
 import com.project.dagger2.xeample1.ui.DependienceActivity;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 /**
@@ -17,6 +19,7 @@ import dagger.Component;
  * 修改备注：
  * Version:  1.0.0
  */
+@Singleton
 @Component(modules = DependienceModule.class,dependencies = BaseComponent.class)
 public interface DependienceComponent {
 

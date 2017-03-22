@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.project.dagger2.xeample1.ui.DependienceActivity;
 import com.project.dagger2.xeample1.ui.ImplementWayOneActivity;
 import com.project.dagger2.xeample1.ui.ImplementWayTwoActivity;
 import com.project.dagger2.xeample1.ui.NamedActivity;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity   implements View.OnClickLis
     private   Button   btnQualifier;
     private   Button   btnSingleton;
     private   Button   btnScope;
-
+    private   Button   btnDependience;
 
     //需要注入依赖的对象  不能用privite修饰
     @Inject
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity   implements View.OnClickLis
     @Inject
     @Type(2)
     protected  Cloths  longCloths;
-
 
 
 
@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity   implements View.OnClickLis
         btnSingleton.setOnClickListener(this);
         btnScope= (Button) findViewById(R.id.button_scope);
         btnScope.setOnClickListener(this);
+        btnDependience= (Button) findViewById(R.id.button_dependience);
+        btnDependience.setOnClickListener(this);
     }
 
     @Override
@@ -105,6 +107,9 @@ public class MainActivity extends AppCompatActivity   implements View.OnClickLis
                 break;
             case R.id.button_scope://Dagger2实现方式2 使用scope
                 startActivity(new Intent(this, ScopeActivity.class));
+                break;
+            case R.id.button_dependience://Dagger2实现方式2 使用dependience
+                startActivity(new Intent(this, DependienceActivity.class));
                 break;
         }
     }
