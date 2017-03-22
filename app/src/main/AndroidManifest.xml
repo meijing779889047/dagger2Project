@@ -15,6 +15,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.ImplementWayOneActivity" />
+        <activity android:name=".ui.ImplementWayTwoActivity" />
+        <activity android:name=".ui.NamedActivity" />
+        <activity android:name=".ui.QualifierActivity" />
+        <activity android:name=".ui.SingletonActivity" />
+        <activity android:name=".ui.ScopeActivity" />
+        <activity android:name=".ui.DependienceActivity"></activity>
     </application>
 
 </manifest>
