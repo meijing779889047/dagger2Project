@@ -22,10 +22,11 @@ public class HnPrefUtil {
      * 初始化sharedpreference
      * @param context
      */
-    public  static void init(Context context){
+    public static  SharedPreferences   init(Context context){
         if(sp==null) {
             sp = context.getSharedPreferences(PERF_NAME, Context.MODE_PRIVATE);
         }
+        return sp;
     }
 
     /**
@@ -33,7 +34,7 @@ public class HnPrefUtil {
      * @param key
      * @param value
      */
-    public static void setBoolean(String key, Boolean value){
+    public   void setBoolean(String key, Boolean value){
         sp.edit().putBoolean(key,value).commit();
     }
 
@@ -43,7 +44,7 @@ public class HnPrefUtil {
      * @param value
      * @return
      */
-    public  static Boolean getBoolean(String key, boolean value){
+    public   Boolean getBoolean(String key, boolean value){
         return sp.getBoolean(key,value);
     }
 

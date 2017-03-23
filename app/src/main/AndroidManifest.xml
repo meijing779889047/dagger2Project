@@ -3,12 +3,13 @@
     package="com.project.dagger2.xeample1">
 
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +22,10 @@
         <activity android:name=".ui.QualifierActivity" />
         <activity android:name=".ui.SingletonActivity" />
         <activity android:name=".ui.ScopeActivity" />
-        <activity android:name=".ui.DependienceActivity"></activity>
+        <activity android:name=".ui.DependienceActivity" />
+        <activity android:name=".ui.LazyProviderActivity" />
+        <activity android:name=".ui.SubcomponentActivity" />
+        <activity android:name=".mvp.MvpActivity"></activity>
     </application>
 
 </manifest>

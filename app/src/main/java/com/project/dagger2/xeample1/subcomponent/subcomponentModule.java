@@ -1,4 +1,4 @@
-package com.project.dagger2.xeample1.dependience;
+package com.project.dagger2.xeample1.subcomponent;
 
 import javax.inject.Named;
 
@@ -17,18 +17,18 @@ import dagger.Provides;
  * Version:  1.0.0
  */
 @Module
-public class DependienceModule {
+public class subcomponentModule {
 
     @Provides
     @Named("way3")
-    public DependienceBean getDependienceBean1(){
-        return  new DependienceBean();
+    public subcomponentBean getDependienceBean1(){
+        return  new subcomponentBean();
     }
 
     @Provides
-    @ScopePerApp
+    @ScopeSubcomponentApp
     @Named("way4")
-    public DependienceBean getDependienceBean2(){
-        return  new DependienceBean();
+    public subcomponentBean getDependienceBean2(){
+        return  new subcomponentBean();
     }
 }

@@ -1,4 +1,4 @@
-package com.project.dagger2.xeample1.dependience;
+package com.project.dagger2.xeample1.subcomponent;
 
 import android.app.Application;
 import android.content.Context;
@@ -23,11 +23,11 @@ import dagger.Provides;
  * Version:  1.0.0
  */
 @Module
-public class BaseModule {
+public class SubcomponentBaseModule {
 
     private  final Application mApplication;
 
-    public BaseModule(Application mApplication) {
+    public SubcomponentBaseModule(Application mApplication) {
         this.mApplication = mApplication;
     }
 

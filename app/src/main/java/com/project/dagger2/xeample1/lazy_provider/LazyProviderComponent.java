@@ -1,6 +1,6 @@
-package com.project.dagger2.xeample1.dependience;
+package com.project.dagger2.xeample1.lazy_provider;
 
-import com.project.dagger2.xeample1.ui.DependienceActivity;
+import com.project.dagger2.xeample1.ui.LazyProviderActivity;
 
 import dagger.Component;
 
@@ -17,10 +17,8 @@ import dagger.Component;
  * 修改备注：
  * Version:  1.0.0
  */
+@Component(modules = LazyProviderModule.class)
+public interface LazyProviderComponent {
 
-@ScopePerApp
-@Component(dependencies = BaseComponent.class,modules={DependienceModule.class})
-public interface DependienceComponent {
-
-    void   inject(DependienceActivity mNamedActivity);
+    void   inject(LazyProviderActivity mNamedActivity);
 }

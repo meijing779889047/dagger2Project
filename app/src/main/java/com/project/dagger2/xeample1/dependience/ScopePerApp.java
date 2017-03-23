@@ -1,27 +1,24 @@
-package com.project.dagger2.xeample1;
+package com.project.dagger2.xeample1.dependience;
 
-import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.inject.Qualifier;
+import javax.inject.Scope;
 
 /**
  * Copyright (C) 2017,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：Dagger2Example1
  * 类描述：
  * 创建人：Administrator
- * 创建时间：2017/3/21 16:07
+ * 创建时间：2017/3/22 17:51
  * 修改人：Administrator
- * 修改时间：2017/3/21 16:07
+ * 修改时间：2017/3/22 17:51
  * 修改备注：
  * Version:  1.0.0
  */
-@Qualifier
-@Documented
+@Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Type {
+public @interface ScopePerApp {
 
-    int value()   default  1;
 
 }

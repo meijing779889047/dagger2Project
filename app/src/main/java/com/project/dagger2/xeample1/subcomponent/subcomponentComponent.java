@@ -1,8 +1,8 @@
-package com.project.dagger2.xeample1.dependience;
+package com.project.dagger2.xeample1.subcomponent;
 
-import com.project.dagger2.xeample1.ui.DependienceActivity;
+import com.project.dagger2.xeample1.ui.SubcomponentActivity;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Copyright (C) 2017,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -18,9 +18,9 @@ import dagger.Component;
  * Version:  1.0.0
  */
 
-@ScopePerApp
-@Component(dependencies = BaseComponent.class,modules={DependienceModule.class})
-public interface DependienceComponent {
+@ScopeSubcomponentApp
+@Subcomponent( modules={subcomponentModule.class})
+public interface subcomponentComponent {
 
-    void   inject(DependienceActivity mNamedActivity);
+    void   inject(SubcomponentActivity mNamedActivity);
 }

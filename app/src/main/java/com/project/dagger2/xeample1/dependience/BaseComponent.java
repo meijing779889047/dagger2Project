@@ -1,5 +1,8 @@
 package com.project.dagger2.xeample1.dependience;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.project.dagger2.xeample1.util.HnPrefUtil;
 
 import javax.inject.Singleton;
@@ -18,8 +21,13 @@ import dagger.Component;
  * Version:  1.0.0
  */
 @Singleton
-@Component(modules = BaseModule.class)
+@Component(modules = {BaseModule.class})
 public interface BaseComponent {
 
-    HnPrefUtil getPrefutil();//是告诉依赖于BaseComponent的Component,BaseComponent能为你们提供HnPrefUtil对象
+  //是告诉依赖于BaseComponent的Component,BaseComponent能为你们提供HnPrefUtil对象
+   Context getApplication();
+
+   SharedPreferences getSharedPreferences();
+
+   HnPrefUtil getHnPrefUtil();
 }

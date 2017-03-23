@@ -1,9 +1,13 @@
-package com.project.dagger2.xeample1.dependience;
+package com.project.dagger2.xeample1.lazy_provider;
+
+import android.util.Log;
 
 import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Copyright (C) 2017,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -17,18 +21,19 @@ import dagger.Provides;
  * Version:  1.0.0
  */
 @Module
-public class DependienceModule {
+public class LazyProviderModule {
 
     @Provides
     @Named("way3")
-    public DependienceBean getDependienceBean1(){
-        return  new DependienceBean();
+    public LazyProviderBean getNamedBean1(){
+        Log.i(TAG,"start  LazyProviderBean1");
+         return  new LazyProviderBean();
     }
 
     @Provides
-    @ScopePerApp
     @Named("way4")
-    public DependienceBean getDependienceBean2(){
-        return  new DependienceBean();
+    public LazyProviderBean getNamedBean2(){
+        Log.i(TAG,"start  LazyProviderBean2");
+        return  new LazyProviderBean();
     }
 }

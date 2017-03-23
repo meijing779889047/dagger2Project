@@ -1,28 +1,15 @@
-package com.project.dagger2.xeample1;
+package com.project.dagger2.xeample1.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.project.dagger2.xeample1.ui.DependienceActivity;
-import com.project.dagger2.xeample1.ui.ImplementWayOneActivity;
-import com.project.dagger2.xeample1.ui.ImplementWayTwoActivity;
-import com.project.dagger2.xeample1.ui.NamedActivity;
-import com.project.dagger2.xeample1.ui.QualifierActivity;
-import com.project.dagger2.xeample1.ui.ScopeActivity;
-import com.project.dagger2.xeample1.ui.SingletonActivity;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import com.project.dagger2.xeample1.R;
+import com.project.dagger2.xeample1.mvp.MvpActivity;
 
 public class MainActivity extends AppCompatActivity   implements View.OnClickListener{
-
-
-
-    private   TextView tvInfo;
 
     private   Button   btnOneWay;
     private   Button   btnTwoWay;
@@ -31,26 +18,9 @@ public class MainActivity extends AppCompatActivity   implements View.OnClickLis
     private   Button   btnSingleton;
     private   Button   btnScope;
     private   Button   btnDependience;
-
-    //需要注入依赖的对象  不能用privite修饰
-    @Inject
-    @Named("long")//用于标识区分
-    protected  Cloth   mLongCloth;
-    @Inject
-    @Named("short")//用于标识区分
-    protected  Cloth   mShortCloth;
-    @Inject
-    protected  Shoe    mShoe;
-
-
-    @Inject
-    @Type(1)
-    protected  Cloths  shortCloths;
-    @Inject
-    @Type(2)
-    protected  Cloths  longCloths;
-
-
+    private   Button   btnLazyProvier;
+    private   Button   btnSubcomponent;
+    private   Button   btnExmaple;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,19 +28,11 @@ public class MainActivity extends AppCompatActivity   implements View.OnClickLis
         setContentView(R.layout.activity_main);
         //初始化组件
         initView();
-
-
-       DaggerClothComponent.builder().clothModule(new ClothModule()).build().inject(this);
-       mShoe.setName("鞋子");
-       tvInfo.setText("我现在有布料"+mLongCloth.getName()+"和"+mShortCloth.getName()+"和"+mShoe.getName()+"-->mShortCloth是否与mmLongCloth时用一个对象："+(mShortCloth==shortCloths.getCloth()));
-
     }
-
     /**
      * 初始化组件
      */
     private void initView() {
-        tvInfo= (TextView) findViewById(R.id.tv_info);
         btnOneWay= (Button) findViewById(R.id.button_implement_way_one);
         btnOneWay.setOnClickListener(this);
         btnTwoWay= (Button) findViewById(R.id.button_implement_way_two);
@@ -85,6 +47,12 @@ public class MainActivity extends AppCompatActivity   implements View.OnClickLis
         btnScope.setOnClickListener(this);
         btnDependience= (Button) findViewById(R.id.button_dependience);
         btnDependience.setOnClickListener(this);
+        btnLazyProvier= (Button) findViewById(R.id.button_lazy_provider);
+        btnLazyProvier.setOnClickListener(this);
+        btnSubcomponent= (Button) findViewById(R.id.button_subcomponent);
+        btnSubcomponent.setOnClickListener(this);
+        btnExmaple= (Button) findViewById(R.id.button_example);
+        btnExmaple.setOnClickListener(this);
     }
 
     @Override
@@ -110,6 +78,15 @@ public class MainActivity extends AppCompatActivity   implements View.OnClickLis
                 break;
             case R.id.button_dependience://Dagger2实现方式2 使用dependience
                 startActivity(new Intent(this, DependienceActivity.class));
+                break;
+            case R.id.button_lazy_provider://Dagger2实现方式2 使用alzy/provider
+                startActivity(new Intent(this, LazyProviderActivity.class));
+                break;
+            case R.id.button_subcomponent://Dagger2实现方式2 使用subcomponent
+                startActivity(new Intent(this, SubcomponentActivity.class));
+                break;
+            case R.id.button_example:// MVP+Dagger2结合使用
+                startActivity(new Intent(this, MvpActivity.class));
                 break;
         }
     }
