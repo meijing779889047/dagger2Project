@@ -1,10 +1,5 @@
 #### <center>Dagger2初识</center>
 
-### 实例地址  [https://github.com/meijing779889047/dagger2Project.git](https://github.com/meijing779889047/dagger2Project.git)
-
-#### 注意：以下的实例说明全都是基于实例代码而定
-
-
 * 使用Dagger2的优势？
   
       避免重复的进行对象的初始化创建，使用一种更省力，更自动化的方式进行对象的创建，提高开发效率
@@ -153,11 +148,7 @@
 	  }
 	}
    
-<<<<<<< HEAD
-这个类是用于创建和获取用@inject注解标注的构造函数的实例
-=======
    这个类是用于创建和获取用@inject注解标注的构造函数的实例 
->>>>>>> 2113dd9ecd53f34f525b772dd7a8d4e1362818b7
 
 
 
@@ -191,14 +182,9 @@
 	    instance.name = nameProvider.get();
 	  }
 	}
-<<<<<<< HEAD
-这个类中Provider nameProvider 是用于提供对象的，他通过ImplementWayOneBean_MembersInjector(Provider nameProvider)构造函数获取对象，再通过 injectMembers(ImplementWayOneBean instance)方法将数据初始化的对象赋值给需要被依赖的的对象
-
-=======
 
    这个类中Provider<String> nameProvider 是用于提供对象的，他通过ImplementWayOneBean_MembersInjector(Provider<String> nameProvider)构造函数获取对象，再通过
 injectMembers(ImplementWayOneBean instance)方法将数据初始化的对象赋值给需要被依赖的的对象
->>>>>>> 2113dd9ecd53f34f525b772dd7a8d4e1362818b7
 		
 		@Generated(
 		  value = "dagger.internal.codegen.ComponentProcessor",
@@ -241,16 +227,7 @@ injectMembers(ImplementWayOneBean instance)方法将数据初始化的对象赋�
 		  }
 		}
 
-其中DaggerImplementWayOneComponent类是component接口类的的实现类，DaggerImplementWayOneComponent.builder().build()用于创建DaggerImplementWayOneComponent的对象， 然后将Activity/fragment/calss 的对象传入到ImplementWayOneBean_Factory中，让其进行注入 同时接收被被注入的实例参数；而 MembersInjector dagger2ActivityMembersInjector 的作用是负责给被@Inject的成员变量赋值。而进行赋值的方法就是inject(ImplementWayOneActivity mImplementWayOneActivity) 方法
 
-<<<<<<< HEAD
-* 实现流程：
-   * 1.ImplementWayOneBean_Factory该类用于创建所依赖对象的实例； 
-   * 2.DaggerImplementWayOneComponent.builder().build()用于创建DaggerImplementWayOneComponent的对象，同时通过initialize(final Builder builder)方法将ImplementWayOneBean_Factory类创建所依赖对象的实例存储到ImplementWayOneBean_MembersInjector中
-   *  3.然后通过inject（）方法将Activity/fragment/calss 的对象传入到ImplementWayOneBean_MembersInjector中，
-   *   4.将存储的数据通过injectMembers(ImplementWayOneBean instance)方法进行赋值
-  
-=======
   其中DaggerImplementWayOneComponent类是component接口类的的实现类，DaggerImplementWayOneComponent.builder().build()用于创建DaggerImplementWayOneComponent的对象， 然后将Activity/fragment/calss 的对象传入到ImplementWayOneBean_Factory中，让其进行注入
   同时接收被被注入的实例参数；而  MembersInjector<ExDagger2Activity> dagger2ActivityMembersInjector 的作用是负责给被@Inject的成员变量赋值。而进行赋值的方法就是inject(ImplementWayOneActivity mImplementWayOneActivity)
   方法  
@@ -261,7 +238,6 @@ injectMembers(ImplementWayOneBean instance)方法将数据初始化的对象赋�
           3.然后通过inject（）方法将Activity/fragment/calss 的对象传入到ImplementWayOneBean_MembersInjector中，
 	  4.将存储的数据通过injectMembers(ImplementWayOneBean instance)方法进行赋值
 
->>>>>>> 2113dd9ecd53f34f525b772dd7a8d4e1362818b7
 
 #### Dagger2实现方式二: 通过Module实现
 
@@ -639,370 +615,4 @@ public class ImplementWayTwoActivity extends AppCompatActivity {
 
 ### Dagger2注解之dependience
 
-* 使用需求：项目的工具类，我们想让这个工具类在整个app的生命周期都是单例的，常用的有sharedprefrence工具类，Activity的管理类等，其他的activity/fragment/class 都可以公用，而无须重复的去创建。
-
-  解决方式：可通过dependience实现component的依赖
-
-*使用
-
-1.创建baseModule类
-
-		@Module
-		public class BaseModule {
-		
-		    private  final Application mApplication;
-		
-		    public BaseModule(Application mApplication) {
-		        this.mApplication = mApplication;
-		    }
-		
-		
-		    @Provides
-		    public  Context  getApplication(){
-		           return  mApplication;
-		    }
-		
-		
-		    @Provides
-		    public SharedPreferences getSharedPreferences(){
-		         return HnPrefUtil.init(mApplication.getApplicationContext());
-		    }
-		
-		
-		    @Provides
-		    @Singleton
-		    public HnPrefUtil getHnPrefUtil(){
-		        return new HnPrefUtil();
-		    }
-		
-		
-		}
-
-	
-
-
-2.创建BaseComponent类  
-
-	@Singleton
-		@Component(modules = {BaseModule.class})
-		public interface BaseComponent {
-		
-		  //是告诉依赖于BaseComponent的Component,BaseComponent能为你们提供HnPrefUtil对象
-		   Context getApplication();
-		
-		   SharedPreferences getSharedPreferences();
-		
-		   HnPrefUtil getHnPrefUtil();
-		}
-
-
-3.创建自定义scope
-
-			@Scope
-			@Retention(RetentionPolicy.RUNTIME)
-			public @interface ScopePerApp {
-			
-			}
-
-4.创建DependienceModule，用于提供供其他的一些对象
-
-		@Module
-		public class DependienceModule {
-		
-		    @Provides
-		    @Named("way3")
-		    public DependienceBean getDependienceBean1(){
-		        return  new DependienceBean();
-		    }
-		
-		    @Provides
-		    @ScopePerApp
-		    @Named("way4")
-		    public DependienceBean getDependienceBean2(){
-		        return  new DependienceBean();
-		    }
-		}
-
-
-5.创建DependienceComponent接口注入器
-
-			@ScopePerApp
-			@Component(dependencies = BaseComponent.class,modules={DependienceModule.class})
-			public interface DependienceComponent {
-			
-			    void   inject(DependienceActivity mNamedActivity);
-			}
-
-说明：在这四个类中BaseModule/BaseCompont 中使用@singleton注解作为scope；而DependienceModule/DependienceComponent 中用@ScopePerApp最为scop，表明他们不能使用同一个scope作为作用域，若用同一个scope作为作用域将会报错
-
-
-6.自定义application  获取application
-
-		public class MyApp extends Application {
-		
-		    private BaseComponent mBaseComponent;
-		
-		    @Override
-		    public void onCreate() {
-		        super.onCreate();
-		       mBaseComponent=  DaggerBaseComponent.builder().baseModule(new BaseModule(this)).build();
-		    }
-		
-		
-		    public  BaseComponent  getBaseComponent(){
-		        return   mBaseComponent;
-		    }
-		}
-
-
-7.直接声明属性
-
-		public class DependienceActivity extends AppCompatActivity {
-		
-		    private TextView tvData;
-		
-		    @Inject
-		    @Named("way3")
-		    DependienceBean  bean1;
-		
-		    @Inject
-		    SharedPreferences sp;
-		    @Inject
-		    SharedPreferences sp1;
-		
-		    @Inject
-		    HnPrefUtil   mHnPrefUtil1;
-		    @Inject
-		    HnPrefUtil   mHnPrefUtil2;
-		
-		    @Override
-		    protected void onCreate(Bundle savedInstanceState) {
-		        super.onCreate(savedInstanceState);
-		        setContentView(R.layout.activity_dependience);
-		        tvData= (TextView) findViewById(R.id.tv_data);
-		        DaggerDependienceComponent.builder().baseComponent(((MyApp)getApplication()).getBaseComponent()).dependienceModule(new DependienceModule()).build().inject(this);
-		        bean1.setName("张三");
-		        HnPrefUtil.setString("data","1");
-		        tvData.setText("通过Dagger2的实现方式2采用module获取的数据："+bean1.getName()+"--->(SharedPreferences1==SharedPreferences2)"+(mHnPrefUtil1==mHnPrefUtil2));
-		    }
-		}
-
-说明：运行后我们可以发现我们创建的两个HnPrefUtil对象是一样的，实现了单例效果，这样其他的component只要依赖其component都可获取baseModule里面提供的对象
-
-
-
-### Dagger2注解之Lazy/Provider
-
-* Lazy的作用
-  
-      懒加载模式，用于延时加载，当你需要依赖该对象的时候，Dagger2才会帮你获取一个对象，若该对象已被初始化化，将不会再次初始化
-
-* Provider的作用
-  
-      用于强制重新加载，当你每一用到该依赖对象时，Dagger2都会帮你重新获取对象
-
-
-
-* Lazy/Provider的使用
-
-  1.创建对象实例类
-
-			public class LazyProviderBean {
-			
-			    private  String name;
-			
-			    public LazyProviderBean() {
-			    }
-			
-			    public LazyProviderBean(String name) {
-			        this.name=name;
-			    }
-			
-			    public String getName() {
-			        return name;
-			    }
-			
-			    public void setName(String name) {
-			        this.name = name;
-			    }
-			}
-
-  
-   2.实现module类
-
-			@Module
-			public class LazyProviderModule {
-			
-			    @Provides
-			    @Named("way3")
-			    public LazyProviderBean getNamedBean1(){
-			        Log.i(TAG,"start  LazyProviderBean1");
-			         return  new LazyProviderBean();
-			    }
-			
-			    @Provides
-			    @Named("way4")
-			    public LazyProviderBean getNamedBean2(){
-			        Log.i(TAG,"start  LazyProviderBean2");
-			        return  new LazyProviderBean();
-			    }
-			}
-
-
- 3.实现Component接口
-		
-		@Component(modules = LazyProviderModule.class)
-		public interface LazyProviderComponent {
-		
-		    void   inject(LazyProviderActivity mNamedActivity);
-		}
-
- 4.属性声明和使用
-
-		public class LazyProviderActivity extends AppCompatActivity {
-		    private String TAG="LazyProviderActivity";
-		
-		    private TextView tvData;
-		
-		    @Inject
-		    @Named("way3")
-		    Lazy<LazyProviderBean>  bean1;
-		
-		    @Inject
-		    @Named("way4")
-		    Provider<LazyProviderBean> bean2;
-		
-		
-		
-		    @Override
-		    protected void onCreate(Bundle savedInstanceState) {
-		        super.onCreate(savedInstanceState);
-		        setContentView(R.layout.activity_lazy_provider);
-		        tvData= (TextView) findViewById(R.id.tv_data);
-		        tvData.setOnClickListener(new View.OnClickListener() {
-		            @Override
-		            public void onClick(View v) {
-		                bean1.get().setName("张三");
-		                Log.i(TAG,"bean1："+bean1.get().getName());
-		                bean2.get().setName("李四");
-		                Log.e(TAG,"bean2："+bean2.get().getName());
-		                bean1.get().setName("张三");
-		                Log.i(TAG,"bean1："+bean1.get().getName());
-		                bean2.get().setName("李四");
-		                Log.e(TAG,"bean2："+bean2.get().getName());
-		                bean1.get().setName("张三");
-		                Log.i(TAG,"bean1："+bean1.get().getName());
-		                LazyProviderBean datas = bean2.get();
-		                datas.setName("李四");
-		                Log.e(TAG,"bean2："+datas.getName());
-		            }
-		        });
-		        DaggerLazyProviderComponent.builder().lazyProviderModule(new LazyProviderModule()).build().inject(this);
-		
-		    }
-		}
-
-
-
-5.查看结果如下
-
-![](http://img2.ph.126.net/0hyAyiwTvpO0o2sIb34VKw==/6632000151561842180.png)
-
-
-我们可以看到，对于用Lazy声明的属性在点击的时候才会去初始化，并且只会初始化一次，但是用Provider声明的属性每次使用的时候都会去初始化一次，所以打印的时候的数据为null 
-
-
-
-### Dagger2注解之SubComponent
-
-* @Subcomponent与@component的不同
-
-      @Subcomponent注解的功能和component依赖类似,但是使用方法有点不同,component依赖需要在被依赖的Component(下文中称为父组件)中暴露接口,没有暴露接口的类型在依赖方Component(下文中称为子组件)是获取不到的,但是通过@Subcomponent,子组件可以获取到所有父组件能提供的类型
-
-* 注意:用@Subcomponent注解声明的Component是无法单独使用的,想要获取该Component实例必须经过其父组件
-
-* 使用
-
-1.跟上面的Dependience实例一样，只是把子component的注解改为subComponent,同时去除对baseComponent的依赖声明
-
-		
-		@ScopeSubcomponentApp
-		@Subcomponent( modules={subcomponentModule.class})
-		public interface subcomponentComponent {
-		
-		    void   inject(SubcomponentActivity mNamedActivity);
-		}
-
-
-2.在baseComponet中声明subcomponentComponent，当子组件需要什么Module时,就在该方法中添加该类型的参数，同时删除之前声明的方法  
-
-		
-		@Singleton
-		@Component(modules = {SubcomponentBaseModule.class})
-		public interface SubcomponentBaseComponent {
-		
-		
-		
-		    //@Subcomponent使用的声明方式,声明一个返回值为子组件的方法,子组件需要什么Module,就在方法参数中添加什么
-		    subcomponentComponent getSubMainComponent(subcomponentModule module);
-		}
-
-3.
-
-
-3.在application中声明父component  
-
-		 public class MyApp extends Application {
-		
-		    private BaseComponent mBaseComponent;
-		    private SubcomponentBaseComponent mDaggerSubcomponentBaseComponent;
-		
-		    @Override
-		    public void onCreate() {
-		        super.onCreate();
-		        mDaggerSubcomponentBaseComponent= DaggerSubcomponentBaseComponent.builder().subcomponentBaseModule(new SubcomponentBaseModule(this)).build();
-		    }
-		
-		
-		    public  SubcomponentBaseComponent  getSubcomponentBaseComponent(){
-		        return   mDaggerSubcomponentBaseComponent;
-		    }
-		
-		 
-		}
-
-
-4.在class声明属性
-		
-		public class SubcomponentActivity extends AppCompatActivity {
-		
-		
-		    private TextView tv;
-		
-		    @Inject
-		    HnPrefUtil mHnPrefUtil1;
-		    @Inject
-		    HnPrefUtil   mHnPrefUtil2;
-		    @Inject
-		    @Named("way3")
-		    subcomponentBean bean1;
-		
-		    @Override
-		    protected void onCreate(Bundle savedInstanceState) {
-		        super.onCreate(savedInstanceState);
-		        setContentView(R.layout.activity_subcomponent);
-		        tv = (TextView) findViewById(R.id.tv_data);
-		        MyApp application = (MyApp) getApplication();
-		        application.getSubcomponentBaseComponent().getSubMainComponent(new subcomponentModule()).inject(this);
-		        bean1.setName("张三");
-		        tv.setText("通过Dagger2的实现方式2采用module获取的数据："+bean1.getName()+"--->(SharedPreferences1==SharedPreferences2)"+(mHnPrefUtil1==mHnPrefUtil2));
-		    }
-		}
-
-
-
-参考连接： 
-
- *   [http://www.jianshu.com/p/1d84ba23f4d2](http://www.jianshu.com/p/1d84ba23f4d2)
-
- *  [http://blog.csdn.net/soslinken/article/details/52184113](http://blog.csdn.net/soslinken/article/details/52184113)
+* 使用需求：项目的工具类，我们想让这个工具类在整个app的生命周期都是单例的，常用的有sharedprefrence工具类，Activity的管理类
