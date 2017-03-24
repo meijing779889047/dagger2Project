@@ -153,11 +153,7 @@
 	  }
 	}
    
-<<<<<<< HEAD
 这个类是用于创建和获取用@inject注解标注的构造函数的实例
-=======
-   这个类是用于创建和获取用@inject注解标注的构造函数的实例 
->>>>>>> 2113dd9ecd53f34f525b772dd7a8d4e1362818b7
 
 
 
@@ -191,14 +187,8 @@
 	    instance.name = nameProvider.get();
 	  }
 	}
-<<<<<<< HEAD
 这个类中Provider nameProvider 是用于提供对象的，他通过ImplementWayOneBean_MembersInjector(Provider nameProvider)构造函数获取对象，再通过 injectMembers(ImplementWayOneBean instance)方法将数据初始化的对象赋值给需要被依赖的的对象
 
-=======
-
-   这个类中Provider<String> nameProvider 是用于提供对象的，他通过ImplementWayOneBean_MembersInjector(Provider<String> nameProvider)构造函数获取对象，再通过
-injectMembers(ImplementWayOneBean instance)方法将数据初始化的对象赋值给需要被依赖的的对象
->>>>>>> 2113dd9ecd53f34f525b772dd7a8d4e1362818b7
 		
 		@Generated(
 		  value = "dagger.internal.codegen.ComponentProcessor",
@@ -243,25 +233,12 @@ injectMembers(ImplementWayOneBean instance)方法将数据初始化的对象赋�
 
 其中DaggerImplementWayOneComponent类是component接口类的的实现类，DaggerImplementWayOneComponent.builder().build()用于创建DaggerImplementWayOneComponent的对象， 然后将Activity/fragment/calss 的对象传入到ImplementWayOneBean_Factory中，让其进行注入 同时接收被被注入的实例参数；而 MembersInjector dagger2ActivityMembersInjector 的作用是负责给被@Inject的成员变量赋值。而进行赋值的方法就是inject(ImplementWayOneActivity mImplementWayOneActivity) 方法
 
-<<<<<<< HEAD
 * 实现流程：
    * 1.ImplementWayOneBean_Factory该类用于创建所依赖对象的实例； 
    * 2.DaggerImplementWayOneComponent.builder().build()用于创建DaggerImplementWayOneComponent的对象，同时通过initialize(final Builder builder)方法将ImplementWayOneBean_Factory类创建所依赖对象的实例存储到ImplementWayOneBean_MembersInjector中
    *  3.然后通过inject（）方法将Activity/fragment/calss 的对象传入到ImplementWayOneBean_MembersInjector中，
    *   4.将存储的数据通过injectMembers(ImplementWayOneBean instance)方法进行赋值
   
-=======
-  其中DaggerImplementWayOneComponent类是component接口类的的实现类，DaggerImplementWayOneComponent.builder().build()用于创建DaggerImplementWayOneComponent的对象， 然后将Activity/fragment/calss 的对象传入到ImplementWayOneBean_Factory中，让其进行注入
-  同时接收被被注入的实例参数；而  MembersInjector<ExDagger2Activity> dagger2ActivityMembersInjector 的作用是负责给被@Inject的成员变量赋值。而进行赋值的方法就是inject(ImplementWayOneActivity mImplementWayOneActivity)
-  方法  
-
-   
-实现流程：1.ImplementWayOneBean_Factory该类用于创建所依赖对象的实例；
-          2.DaggerImplementWayOneComponent.builder().build()用于创建DaggerImplementWayOneComponent的对象，同时通过initialize(final Builder builder)方法将ImplementWayOneBean_Factory类创建所依赖对象的实例存储到ImplementWayOneBean_MembersInjector中
-          3.然后通过inject（）方法将Activity/fragment/calss 的对象传入到ImplementWayOneBean_MembersInjector中，
-	  4.将存储的数据通过injectMembers(ImplementWayOneBean instance)方法进行赋值
-
->>>>>>> 2113dd9ecd53f34f525b772dd7a8d4e1362818b7
 
 #### Dagger2实现方式二: 通过Module实现
 
